@@ -1,0 +1,9 @@
+.nav{
+    grid-area: n;
+    background-color:whitesmoke;
+}
+.item{
+    font-family:'Segoe UI', sans-serif;
+    font-size: large;
+    font-weight: bold;
+}
