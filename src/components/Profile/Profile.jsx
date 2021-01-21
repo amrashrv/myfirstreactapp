@@ -5,7 +5,7 @@ import classes from './Profile.module.css';
 const Profile = () => {
   return (
     <div>
-      <div>
+      <div className={classes.topImage}>
         <img src="https://rasterbatorapi.azureedge.net/images/r1.jpg" />
       </div>
       <div className={classes.description}>
