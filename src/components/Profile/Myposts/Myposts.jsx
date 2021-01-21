@@ -1,21 +1,21 @@
 import React from 'react';
-import classes from './Profile.module.css';
+import classes from './Myposts.module.css';
+import Post from './Post/Post';
 
 const MyPosts = () => {
-  return <div className={classes.content}>
-    <div className="myposts">
-      My posts
-      <div className="newpost">
-        New Post
+  return (
+    <div>
+      <div className={classes.newpost}>
+        <textarea></textarea>
+        <button>Add post</button>
+        <button>Remove</button>
       </div>
-      <div className="item">
-        post 1
-      </div>
-      <div className="item">
-        post 2
+      <div className={classes.myposts}>
+        <Post message='Hi' likesAmount="5" />
+        <Post message='first post' likesAmount="8"/>
       </div>
     </div>
-  </div>
-
+    
+  );
 }
-export default Profile;
+export default MyPosts;
