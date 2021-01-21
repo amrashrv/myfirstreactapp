@@ -1,13 +1,16 @@
 .nav{
     grid-area: n;
     background-color:whitesmoke;
+    padding:10%;
 }
-.item{
+.item a{
+    color:black;
+    text-decoration: none;
     font-family:'Segoe UI', sans-serif;
     font-size: large;
     font-weight: bold;
 }
-.item.active{
+.item a.active{
     font-family:'Segoe UI', sans-serif;
     font-size: large;
     font-weight: bold;
