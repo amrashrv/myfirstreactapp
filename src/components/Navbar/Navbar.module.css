@@ -1,18 +1,19 @@
 .nav{
+    border-radius: 15px ;
     grid-area: n;
-    background-color:whitesmoke;
+    background-color:#27243b;
     padding:10%;
 }
 .item a{
-    color:black;
+    color:#F0c38e;
     text-decoration: none;
-    font-family:'Segoe UI', sans-serif;
+    font-family:'Calibri', sans-serif;
     font-size: large;
-    font-weight: bold;
+    font-weight:bold;
 }
 .item a.active{
-    font-family:'Segoe UI', sans-serif;
+    font-family:'Calibri', sans-serif;
     font-size: large;
     font-weight: bold;
-    color: darkslategrey;
+    color: white;
 }

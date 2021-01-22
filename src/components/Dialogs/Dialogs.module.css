@@ -5,12 +5,17 @@
 }
 .dialogsItems{
     padding: 10px;
+    font-family: 'calibri';
+    color:#F0c38e;
+    
 }
 .dialogsItems .active{
-    color:darkslategrey;
+    color:white;
 }
 .dialogue{
     padding: 10px;
+    font-family: "calibri";
+    
 }
 .messages{
     padding: 10px;
@@ -18,5 +23,6 @@
 }
 .message{
     padding: 10px;
+    color: #F0c38e;
 
 }
