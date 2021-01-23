@@ -5,20 +5,24 @@
 }
 .dialogsItems{
     padding: 10px;
+    text-decoration: none;
     font-family: 'calibri';
     color:#F0c38e;
     
 }
 .dialogsItems .active{
     color:white;
+    text-decoration: none;
 }
 .dialogue{
     padding: 10px;
     font-family: "calibri";
+    text-decoration: none;
     
 }
 .messages{
     padding: 10px;
+    text-decoration: none;
 
 }
 .message{

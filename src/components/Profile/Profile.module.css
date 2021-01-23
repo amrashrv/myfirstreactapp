@@ -1,12 +1,6 @@
-.topImage img{
-  height: auto;
-  width: 100%;
-  border-top-left-radius:15px;
-  border-top-right-radius: 15px;
-}
 .description img{
-  border-radius: 50%;
-  height: 200px;
-  width: 200px;
+  border-radius: 30%;
+  height: 150px;
+  width: 150px;
   padding: 10px;
 }

@@ -15,8 +15,11 @@
 }
 .app-wrapper-content{
   grid-area: c;
-  background:#27243b;
+  background:#F0c38e;
   border-radius: 15px;
-  
+}
+.backgroundBlock{
+  background-color: #27243b;
+  border-radius: 15px;
 }
 
