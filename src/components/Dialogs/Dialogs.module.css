@@ -1,32 +1,34 @@
 .dialogs{
     display: grid;
     grid-template-columns: 2fr 10fr;
+    
 
 }
 .dialogsItems{
     padding: 10px;
-    text-decoration: none;
     font-family: 'calibri';
     color:#F0c38e;
     
 }
 .dialogsItems .active{
     color:white;
-    text-decoration: none;
+    
 }
 .dialogue{
     padding: 10px;
-    font-family: "calibri";
-    text-decoration: none;
-    
+    font-family: "calibri";    
 }
 .messages{
     padding: 10px;
-    text-decoration: none;
+    background-color: rgb(60, 38, 70);
+    border-radius: 15px;
 
 }
 .message{
     padding: 10px;
     color: #F0c38e;
+    border-radius: 15px;
+    background-color: rgb(37, 81, 177);
+    margin: 10px;
 
 }

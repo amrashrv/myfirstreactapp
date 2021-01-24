@@ -1,13 +1,12 @@
 import React from 'react';
 import MyPosts from './Myposts/Myposts';
 import classes from './Profile.module.css';
+import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = () => {
   return (
     <div className={classes.backgroundBlock}>
-      <div className={classes.description}>
-        <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></img>
-      </div>
+      <ProfileInfo />
       <MyPosts />
     </div>
   )

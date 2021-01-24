@@ -1,3 +1,8 @@
+.item{
+    background-color: coral;
+    border-radius: 15px;
+    margin-bottom: 10px;;
+}
 .item img {
     padding:10px;
     height: 100px;
