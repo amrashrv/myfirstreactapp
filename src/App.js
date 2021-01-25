@@ -20,7 +20,7 @@ const App = () => {
         <div className="app-wrapper-content">
           <h1>...</h1>
           <div className="backgroundBlock">
-            <Route path="/Dialogs" component={Dialogs} />
+            <Route path="/Dialogs" render= { () => <Dialogs/>} />
             <Route path="/Profile" component={Profile} />
             <Route path="/News" component={News} />
             <Route path="/Music" component={Music} />

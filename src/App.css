@@ -17,6 +17,7 @@
   grid-area: c;
   background:#F0c38e;
   border-radius: 15px;
+  box-shadow: 5px 5px 10px  black;
 }
 .backgroundBlock{
   background-color: #27243b;
