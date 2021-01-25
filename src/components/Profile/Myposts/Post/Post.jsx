@@ -6,11 +6,10 @@ const Post = (props) => {
     <div>
       <div className={classes.item}>
         <img src="https://miro.medium.com/max/600/0*eIutoeUo8rPA13e0.jpg" />
-        {props.user}
-        {props.message}
         <div>
-          <span>{props.likesAmount} Likes</span>
+        {props.message}
         </div>
+        {props.likesAmount} Likes
 
       </div>
     </div>
