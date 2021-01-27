@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-export let dialogsData = [
+ let dialogsData = [
   { id: 1, name: "Andrey" },
   { id: 2, name: "Olga" },
   { id: 3, name: "Korney" },
@@ -16,7 +16,7 @@ export let messagesData = [
   { id: 2, message: "Im good" },
   { id: 3, message: "Cool" }
 ];
-export let postsData = [
+ let posts = [
   { id: 1, post: "First Post", likes: 5},
   { id: 2, post: "Second Post", likes: 105 },
   { id: 3, post: "Third post", likes: 26 }
@@ -24,7 +24,7 @@ export let postsData = [
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App posts={posts} dialogsData={dialogsData}/>
   </React.StrictMode>,
   document.getElementById('root')
 );
