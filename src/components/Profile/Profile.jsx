@@ -4,10 +4,11 @@ import classes from './Profile.module.css';
 import ProfileInfo from './ProfileInfo/ProfileInfo';
 
 const Profile = (props) => {
+  
   return (
     <div className={classes.backgroundBlock}>
       <ProfileInfo />
-      <MyPosts prosts={props.posts} />
+      <MyPosts posts={props.posts} />
     </div>
   )
 }

@@ -1,15 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import { dialogsData, messagesData } from '../..';
 import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
 
 const Dialogs = (props) => {
-    
-    let dialogsElements = props.dialogsData
+
+    let dialogsElements = props.dialogs
         .map( dialog => <DialogItem name={dialog.name} id={dialog.id} /> ); 
-    let messagesElements = props.messagesData
+    let messagesElements = props.messages
         .map( message => <Message text={message.message} />);
     
     return (
