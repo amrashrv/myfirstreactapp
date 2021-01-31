@@ -8,7 +8,7 @@ const Profile = (props) => {
   return (
     <div className={classes.backgroundBlock}>
       <ProfileInfo />
-      <MyPosts posts={props.posts} />
+      <MyPosts posts={props.state.posts} />
     </div>
   )
 }
