@@ -20,8 +20,15 @@ let state = {
             { id: 2, message: "Im good" },
             { id: 3, message: "Cool" }
         ]
-    }
-    
-    
+    },
+    sidebar: {}
 };
+export let addPost = (postMessage) => {
+    let newPost = {
+        id: 4,
+        message: postMessage,
+        likesCount: 8
+    };
+    state.profilePage.posts.push(newPost);
+}
 export default state;

@@ -1,10 +1,13 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
-import classes from './../Dialogs.module.css';
+import classes from './Message.module.css'
+
 
 const Message = (props) => {
     return (
-        <div className={classes.message}>{props.text}</div>
+        <div className={classes.message}>
+            <img src=""></img>
+            {props.message}
+        </div>
     );
 }
 
