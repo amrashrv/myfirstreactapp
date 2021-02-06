@@ -21,7 +21,8 @@ let state = {
             { id: 1, message: "Hey how are you" },
             { id: 2, message: "Im good" },
             { id: 3, message: "Cool" }
-        ]
+        ],
+        newMessageText: 'IT kamasutra'
     },
     sidebar: {}
 };
@@ -40,4 +41,18 @@ export let updateNewPostText = (newText) => {
     state.profilePage.newPostText = newText;
     rerenderEntireTree(state);
 }
+export let addMessage = () => {
+    let newTextMessage = {
+        id: 4,
+        message: state.dialogsPage.newMessageText
+    };
+    state.dialogsPage.messages.push(newTextMessage);
+    state.dialogsPage.newMessageText = '';
+    rerenderEntireTree(state);
+}
+export let updateNewMessageText = (newMessage) => {
+    state.dialogsPage.newMessageText = newMessage;
+    rerenderEntireTree(state);
+}
+
 export default state;
