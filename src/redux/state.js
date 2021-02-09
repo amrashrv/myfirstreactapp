@@ -8,7 +8,7 @@ let store = {
             ],
             newPostText: "it-kamasutra.com"
         },
-        dialogsPage:{
+        dialogsPage: {
             dialogs: [
                 { id: 1, name: "Andrey" },
                 { id: 2, name: "Olga" },
@@ -25,26 +25,17 @@ let store = {
         },
         sidebar: {}
     },
-    getState() {
-        return this._state;
-    },
     _callSubsciber() {
         console.log("state is changed");
     },
-    addPost() {
-        let newPost = {
-            id: 4,
-            message: this._state.profilePage.newPostText,
-            likesCount: 0
-        };
-        this._state.profilePage.posts.push(newPost);
-        this._state.profilePage.newPostText = '';
-        this._callSubsciber(this._state);
+
+    getState() {
+        return this._state;
     },
-    updateNewPostText(newText) {
-        this._state.profilePage.newPostText = newText;
-        this._callSubsciber(this._state);
+    subscribe(observer) {
+        this._callSubsciber = observer;
     },
+
     addMessage() {
         let newTextMessage = {
             id: 4,
@@ -58,9 +49,22 @@ let store = {
         this._state.dialogsPage.newMessageText = newMessage;
         this._callSubsciber(this._state);
     },
-    subscribe(observer) {
-        this._callSubsciber = observer;
+    dispatch(action) {
+        if (action.type === "Add-post") {
+            let newPost = {
+                id: 4,
+                message: this._state.profilePage.newPostText,
+                likesCount: 0
+            };
+            this._state.profilePage.posts.push(newPost);
+            this._state.profilePage.newPostText = '';
+            this._callSubsciber(this._state);
+        } else if (action.type === "Update-new-post-text") {
+            this._state.profilePage.newPostText = action.newText;
+            this._callSubsciber(this._state);
+        }
     },
+
 };
 
 window.store = store;
