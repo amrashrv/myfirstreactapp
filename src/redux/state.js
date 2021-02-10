@@ -38,20 +38,6 @@ let store = {
     subscribe(observer) {
         this._callSubsciber = observer;
     },
-
-    addMessage() {
-        let newTextMessage = {
-            id: 4,
-            message: this._state.dialogsPage.newMessageText
-        };
-        this._state.dialogsPage.messages.push(newTextMessage);
-        this._state.dialogsPage.newMessageText = '';
-        this._callSubsciber(this._state);
-    },
-    updateNewMessageText(newMessage) {
-        this._state.dialogsPage.newMessageText = newMessage;
-        this._callSubsciber(this._state);
-    },
     dispatch(action) {
         if (action.type === "Add-post") {
             let newPost = {
@@ -65,10 +51,33 @@ let store = {
         } else if (action.type === "Update-new-post-text") {
             this._state.profilePage.newPostText = action.newText;
             this._callSubsciber(this._state);
+        } else if (action.type === "ADD-MESSAGE") {
+            let newTextMessage = {
+                id: 4,
+                message: this._state.dialogsPage.newMessageText
+            };
+            this._state.dialogsPage.messages.push(newTextMessage);
+            this._state.dialogsPage.newMessageText = '';
+            this._callSubsciber(this._state);
+        } else if (action.type === "UPDATE-NEW-MESSAGE-TEXT") {
+            this._state.dialogsPage.newMessageText = action.newMessage;
+            this._callSubsciber(this._state);
         }
     },
 };
-export const addPostActionCreator = () => ({type: add_post});
-export const updateNewPostTextActionCreator = (text) => ({type: update_new_post_text, newText: text});
+export const addPostActionCreator = () => ({
+     type: add_post 
+});
+export const updateNewPostTextActionCreator = (text) => ({ 
+    type: update_new_post_text, 
+    newText: text 
+});
+export const addMessageActionCreator = () => ({
+    type: "ADD-MESSAGE"
+});
+export const updateNewMessageTextActionCreator = (newMessage) => ({
+    type: "UPDATE-NEW-MESSAGE-TEXT",
+    newMessage: newMessage
+})
 window.store = store;
 export default store;
