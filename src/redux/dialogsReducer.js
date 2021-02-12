@@ -1,14 +1,40 @@
-const dialogsReducer = (state, action) =>{
-    if (action.type === SEND_MESSAGE) {
-        let body = this._state.dialogsPage.newMessageBody;
-        this._state.dialogsPage.messages.push({
-            id: 4,
-            message: body
-        });
-        this._state.dialogsPage.newMessageBody = '';
-        this._callSubsciber(this._state);
-    } else if (action.type === UPDATE_NEW_MESSAGE_BODY) {
-        this._state.dialogsPage.newMessageBody = action.body;
-        this._callSubsciber(this._state);
+const UPDATE_NEW_MESSAGE_BODY = "UPDATE-NEW-MESSAGE-BODY";
+const SEND_MESSAGE = 'SEND-MESSAGE';
+
+
+const dialogsReducer = (state, action) => {
+    switch (action.type){
+        case UPDATE_NEW_MESSAGE_BODY:
+            state.newMessageBody = action.body;
+            return state;
+        case SEND_MESSAGE:
+            let body = state.newMessageBody;
+                state.messages.push({
+                id: 4,
+                message: body
+                });
+            state.newMessageBody = '';
+            return state;
+        default:
+            return state;
     }
-}
+};
+    export const sendMessageCreator = () => ({
+        type: SEND_MESSAGE
+    });
+    export const updateNewMessageBodyCreator = (body) => ({
+        type: UPDATE_NEW_MESSAGE_BODY,
+        body: body});
+    // if (action.type === UPDATE_NEW_MESSAGE_BODY) {
+    //     state.newMessageBody = action.body;
+    // } else if (action.type = SEND_MESSAGE) {
+    //     let body = state.newMessageBody;
+    //     state.messages.push({
+    //         id: 4,
+    //         message: body
+    //     });
+    //     state.newMessageBody = '';
+    // }  
+    // return state;
+
+export default dialogsReducer;
