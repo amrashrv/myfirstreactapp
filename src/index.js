@@ -12,7 +12,8 @@ let rerenderEntireTree = (state) => {
         <BrowserRouter>
           <App
             state={state}
-            dispatch={store.dispatch.bind(store)}
+            dispatch={store.dispatch.bind(store)} 
+            store={store}
              />
         </BrowserRouter>
       </React.StrictMode>,
@@ -21,7 +22,7 @@ let rerenderEntireTree = (state) => {
   }
   
 rerenderEntireTree(store.getState());
-store.subscribe(() => {
+store.subscribe(() => {//asking state from store
   let state = store.getState();
   rerenderEntireTree(state);
 });

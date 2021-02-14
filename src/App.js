@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route } from 'react-router-dom';
 import './App.css';
-import Dialogs from './components/Dialogs/Dialogs';
+import DialogsContainer from './components/Dialogs/dialogsContainer';
 import Header from './components/Header/Header';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
@@ -18,14 +18,13 @@ const App = (props) => {
       <Navbar />
 
       <div className="app-wrapper-content">
-        <h1></h1>
+        <h1> </h1>
         <div className="backgroundBlock">
-          <Route path="/Dialogs" render={() => <Dialogs
-            dialogsPage={props.state.dialogsPage}
-            dispatch={props.dispatch}
+          <Route path="/Dialogs" render={() => <DialogsContainer
+            store={props.store}
           />} />
           <Route path="/Profile" render={() => <Profile
-            profilePage={props.state.profilePage} dispatch={props.dispatch} />} />
+            store={props.store} />} />
           <Route path="/News" component={News} />
           <Route path="/Music" component={Music} />
           <Route path="/Settings" component={Settings} />
