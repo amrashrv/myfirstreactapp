@@ -10,5 +10,6 @@ let reducers = combineReducers({
 });
 //создание нового Store через Redux
 let store = createStore(reducers);
+window.store = store;
 //export store to index.js
 export default store;
