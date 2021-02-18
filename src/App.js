@@ -8,6 +8,7 @@ import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Profile from './components/Profile/Profile';
 import Settings from './components/Settings/Settings';
+import UsersContainer from './components/Users/UsersContainer';
 
 
 const App = (props) => {
@@ -22,6 +23,7 @@ const App = (props) => {
         <div className="backgroundBlock">
           <Route path="/Dialogs" render={() => <DialogsContainer/>} />
           <Route path="/Profile" render={() => <Profile/>} />
+          <Route path="/Users" render={() => <UsersContainer/>} />
           <Route path="/News" component={News} />
           <Route path="/Music" component={Music} />
           <Route path="/Settings" component={Settings} />
