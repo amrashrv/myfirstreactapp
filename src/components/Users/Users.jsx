@@ -4,26 +4,22 @@ import * as axios from 'axios';
 import userPhoto from '../../assets/images/images.png';
 
 class Users extends React.Component {
-    
-    getUsers = () => {
-        
-        if (this.props.users.length === 0) {
-            axios.get("https://social-network.samuraijs.com/api/1.0/users")
-                .then(response => {
-                    this.props.setUsers(response.data.items);
-                });
-    
-        }
+    constructor(props) {
+        super(props);
+        axios.get("https://social-network.samuraijs.com/api/1.0/users")
+            .then(response => {
+                this.props.setUsers(response.data.items);
+            });
     }
-    render(){
+    render() {
         return (
             <div>
-                <button onClick={this.getUsers}>Get Users</button>
+
                 {
                     this.props.users.map(user => <div key={user.id}>
                         <span>
                             <div className={classes.photo}>
-                                <img src={user.photos.small !== null ? user.photos.small : userPhoto} />
+                                <img alt="userphoto" src={user.photos.small !== null ? user.photos.small : userPhoto} />
                             </div>
                             <div>
                                 {user.followed ? <button onClick={() => { this.props.unfollow(user.id) }}>Unfollow</button>
