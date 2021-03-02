@@ -9,7 +9,8 @@ let initialState = {//default object
         { id: 3, message: "Third post", likesCount: 26 }
     ],
     newPostText: "it-kamasutra.com",
-    profile: null
+    profile: null,
+    isFetching: false
 };
 
 const profileReducer = (state = initialState, action) => {
