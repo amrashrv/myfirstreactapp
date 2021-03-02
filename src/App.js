@@ -6,7 +6,7 @@ import Header from './components/Header/Header';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
-import Profile from './components/Profile/Profile';
+import ProfileContainer from './components/Profile/profileContainer';
 import Settings from './components/Settings/Settings';
 import UsersContainer from './components/Users/UsersContainer';
 
@@ -17,12 +17,11 @@ const App = (props) => {
     <div className='app_wrapper'>
       <Header />
       <Navbar />
-
       <div className="app-wrapper-content">
         <h1> </h1>
         <div className="backgroundBlock">
           <Route path="/Dialogs" render={() => <DialogsContainer/>} />
-          <Route path="/Profile" render={() => <Profile/>} />
+          <Route path="/Profile" render={() => <ProfileContainer/>} />
           <Route path="/Users" render={() => <UsersContainer/>} />
           <Route path="/News" component={News} />
           <Route path="/Music" component={Music} />
