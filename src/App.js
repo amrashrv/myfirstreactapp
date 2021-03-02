@@ -21,7 +21,7 @@ const App = (props) => {
         <h1> </h1>
         <div className="backgroundBlock">
           <Route path="/Dialogs" render={() => <DialogsContainer/>} />
-          <Route path="/Profile" render={() => <ProfileContainer/>} />
+          <Route path="/Profile/:userId?" render={() => <ProfileContainer/>} />
           <Route path="/Users" render={() => <UsersContainer/>} />
           <Route path="/News" component={News} />
           <Route path="/Music" component={Music} />
