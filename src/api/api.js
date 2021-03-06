@@ -28,3 +28,8 @@ export const headerAPI = {
         return instanse.get(`auth/me`)
     }
 }
+export const profileAPI = {
+    getProfile(userId){
+        return instanse.get(`profile/` + userId)
+    }
+}
