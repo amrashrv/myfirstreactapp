@@ -23,3 +23,8 @@ export const usersAPI = {
         return instanse.delete(`follow/${userId}`);
     }
 }
+export const headerAPI = {
+    getHeader(){
+        return instanse.get(`auth/me`)
+    }
+}
