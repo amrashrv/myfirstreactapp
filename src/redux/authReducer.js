@@ -25,17 +25,15 @@ const authReducer = (state = initialState, action) => {
     }
 }
 
-export const setAuthUserDataSuccess = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}});
+export const setAuthUserData = (userId, email, login) => ({type: SET_USER_DATA, data: {userId, email, login}});
 
-export const setAuthUserData = () => {
-    return (dispatch) => {
+export const getAuthUserData = () => (dispatch) => {
         headerAPI.getHeader()
             .then(response => {
                 if (response.data.resultCode === 0){
                     let {id, login, email} = response.data.data;
-                    dispatch(setAuthUserDataSuccess(id, email, login));
+                    dispatch(setAuthUserData(id, email, login));
                 }
             });
     }
-}
 export default authReducer;

@@ -48,14 +48,14 @@ export const updateNewPostTextActionCreator = (text) => ({
     type: update_new_post_text,
     newText: text
 });
-export const setUserProfileSuccess = (profile) => ({
+export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
     profile
 })
-export const setUserProfile = (userId) => {
+export const getUserProfile = (userId) => {
     return (dispatch) => {
         profileAPI.getProfile(userId).then(response => {
-            dispatch(setUserProfileSuccess(response.data));
+            dispatch(setUserProfile(response.data));
         });
     }
 }
