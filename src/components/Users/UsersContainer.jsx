@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import { withAuthRedirect } from '../../hoc/withAuthRedirect';
 import { follow, setCurrentPage, unfollow,  toggleFollowingProgress, getUsers} from '../../redux/usersReducer';
 import Preloader from '../common/preloader/preloader';
 import Users from './Users';
@@ -37,5 +38,6 @@ let mapStateToProps = (state) => {
         isFetching: state.usersPage.isFetching,
         followingInProgress: state.usersPage.followingInProgress
     }
-} 
-export default connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})(UsersContainer);
+}
+//redirecting to Login page if user is not logined
+export default withAuthRedirect(connect(mapStateToProps, {follow, unfollow, setCurrentPage, toggleFollowingProgress, getUsers})(UsersContainer));
