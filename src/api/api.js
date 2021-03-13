@@ -1,4 +1,5 @@
 import * as axios from "axios";
+import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 
 const instanse = axios.create({
@@ -25,11 +26,17 @@ export const usersAPI = {
 }
 export const headerAPI = {
     getHeader(){
-        return instanse.get(`auth/me`)
+        return instanse.get(`auth/me`);
     }
 }
 export const profileAPI = {
     getProfile(userId){
-        return instanse.get(`profile/` + userId)
+        return instanse.get(`profile/` + userId);
+    },
+    getStatus(userId){
+        return instanse.get(`profile/status/` + userId);
+    },
+    updateStatus(status){
+        return instanse.put(`profile/status`, {status: status});
     }
 }
