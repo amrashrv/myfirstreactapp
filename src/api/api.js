@@ -1,5 +1,4 @@
 import * as axios from "axios";
-import { unstable_renderSubtreeIntoContainer } from "react-dom";
 
 
 const instanse = axios.create({
