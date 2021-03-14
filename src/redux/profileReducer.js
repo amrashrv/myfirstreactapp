@@ -1,7 +1,6 @@
 import { profileAPI } from "../api/api";
 
 const add_post = 'Add-post';
-const update_new_post_text = 'Update-new-post-text';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 
@@ -12,7 +11,6 @@ let initialState = {//default object
         { id: 2, message: "Second Post", likesCount: 105 },
         { id: 3, message: "Third post", likesCount: 26 }
     ],
-    newPostText: "it-kamasutra.com",
     profile: null,
     status: "",
     isFetching: false
@@ -23,19 +21,13 @@ const profileReducer = (state = initialState, action) => {
         case add_post: {
             let newPost = {
                 id: 4,
-                message: state.newPostText,
+                message: action.newPostBody,
                 likesCount: 0
             };
             return { ...state,
                 posts: [...state.posts, newPost],
                 newPostText: ''
             }
-        }
-        case update_new_post_text: {
-            return { ...state,
-                newPostText: action.newText
-            }
-            
         }
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
@@ -47,12 +39,8 @@ const profileReducer = (state = initialState, action) => {
             return state;
     }
 }
-export const addPostActionCreator = () => ({
-    type: add_post
-});
-export const updateNewPostTextActionCreator = (text) => ({
-    type: update_new_post_text,
-    newText: text
+export const addPostActionCreator = (newPostBody) => ({
+    type: add_post, newPostBody
 });
 export const setUserProfile = (profile) => ({
     type: SET_USER_PROFILE,
