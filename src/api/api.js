@@ -26,6 +26,12 @@ export const usersAPI = {
 export const headerAPI = {
     getHeader(){
         return instanse.get(`auth/me`);
+    },
+    login(email, password, rememberMe = false) {
+        return instanse.post(`auth/login`, {email, password, rememberMe});
+    },
+    logout(){
+        return instanse.delete(`auth/login`);
     }
 }
 export const profileAPI = {
