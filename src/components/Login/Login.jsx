@@ -13,13 +13,13 @@ const LoginForm = (props) => {
         //props.onSubmit(formData)
         <form onSubmit={props.handleSubmit} >
             <div>
-                <Field placeholder={"email"} name={'email'} component={Input} validate={[required]}/>
+                <Field placeholder={"email"} name={'email'} component={Input} validate={[required]} />
             </div>
             <div>
                 <Field placeholder={"password"} name={'password'} component={Input} validate={[required]} />
             </div>
             <div>
-                <Field type={"checkbox"} name={'rememberMe'} component={Input}/>remember me
+                <Field type={"checkbox"} name={'rememberMe'} component={Input} /> Remember me
             </div>
             <div>
                 <button>Login</button>
@@ -38,16 +38,18 @@ const Login = (props) => {
     const onSubmit = (formData) => {
         props.login(formData.email, formData.password, formData.rememberMe);
     }
-    if(props.isAuth) {
-        <Redirect to={"/Profile"} />
+    if (props.isAuth) {
+        return <Redirect to={"/Profile"} />
     }
     return (
-        <div>   
+        <div>
             <h1>Login</h1>
             <LoginReduxForm onSubmit={onSubmit} />
         </div>)
 }
+
 const mapStateToProps = (state) => ({
     isAuth: state.auth.isAuth
 })
-export default connect(mapStateToProps, {login})(Login);
+
+export default connect(mapStateToProps, { login })(Login);
