@@ -29,6 +29,7 @@ class UsersContainer extends React.Component {
 		</>
 	}
 }
+//creating users mapstate to props
 let mapStateToProps = (state) => {
 	return {
 		users: state.usersPage.users,
