@@ -19,25 +19,27 @@ const AddPostForm = (props) => {
 	)
 }
 
-const AddPostFormRedux = reduxForm({form: 'AddNewPostForm'})(AddPostForm);
+const AddPostFormRedux = reduxForm({ form: 'AddNewPostForm' })(AddPostForm);
 
 window.props = [];
 const MyPosts = React.memo(props => {
-  console.log('render');
-  let postsElements = props.posts.map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
-  const addNewPost = values => {
-    props.addPost(values.newPostBody);
-  };
+	let postsElements = [...props.posts]
+		.reverse()
+		.map(p => <Post message={p.message} likesCount={p.likesCount} />);
 
-  return <div className={classes.post}>
-			<div className={classes.newpost}>
-				<AddPostFormRedux onSubmit={addNewPost} />
-			</div>
-			<div className={classes.myposts}>
-				{postsElements}
-			</div>
-		</div>;
+	const addNewPost = values => {
+		props.addPost(values.newPostBody);
+	};
+
+	return <div className={classes.post}>
+		<div className={classes.newpost}>
+			<AddPostFormRedux onSubmit={addNewPost} />
+		</div>
+		<div className={classes.myposts}>
+			{postsElements}
+		</div>
+	</div>;
 });
 
 
