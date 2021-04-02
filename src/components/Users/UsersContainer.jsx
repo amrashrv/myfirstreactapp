@@ -8,13 +8,15 @@ import Users from './Users';
 
 class UsersContainer extends React.Component {
 	componentDidMount() {
-		this.props.getUsers(this.props.currentPage, this.props.pageSize);
+		let {currentPage, pageSize} = this.props
+		this.props.getUsers(currentPage, pageSize);
 	}
 	onPageChanged = (pageNumber) => {
-		this.props.getUsers(pageNumber, this.props.pageSize);
+		let {pageSize} = this.props;
+		this.props.getUsers(pageNumber, pageSize);
 	}
 	render() {
-		console.log('render')
+		
 		return <>
 		{/* {this.props.isFetching ? <style>{loader}</style>  : null} */}
 		{this.props.isFetching ? <Preloader/> : null}
@@ -33,7 +35,7 @@ class UsersContainer extends React.Component {
 }
 //creating users mapstate to props
 let mapStateToProps = (state) => {
-	console.log("mapStateToProps Users")
+
 	return {
 		users: getUsers(state),
 		pageSize: getPageSize(state),

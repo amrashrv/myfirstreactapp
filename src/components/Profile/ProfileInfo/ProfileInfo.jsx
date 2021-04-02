@@ -3,28 +3,28 @@ import Preloader from '../../common/preloader/preloader';
 import classes from './ProfileInfo.module.css';
 import ProfileStatusWithHooks from './ProfileStatusWithHooks';
 
-const ProfileInfo = (props) => {
+const ProfileInfo = ({profile, updateStatus, status}) => {
 	
-	if (!props.profile) {
+	if (!profile) {
 		return <Preloader />
 	}
 	return (
 		<div className={classes.description}>
 			<div className={classes.profileInf}>
-				<h1>{props.profile.fullName}</h1>
+				<h1>{profile.fullName}</h1>
 				<ProfileStatusWithHooks 
-					status={props.status}
-					updateStatus={props.updateStatus} />
-				<h3>About me: {props.profile.aboutMe}</h3>
-				<h3>{props.profile.lookingForAJob === true ? props.profile.lookingForAJobDescription : null}</h3>
+					status={status}
+					updateStatus={updateStatus} />
+				<h3>About me: {profile.aboutMe}</h3>
+				<h3>{profile.lookingForAJob === true ? profile.lookingForAJobDescription : null}</h3>
 				<h3>
-					<ul>{props.profile.contacts.github}</ul>
-					<ul>{props.profile.contacts.vk}</ul>
-					<ul>{props.profile.contacts.instagram}</ul>
-					<ul>{props.profile.contacts.facebook}</ul>
+					<ul>{profile.contacts.github}</ul>
+					<ul>{profile.contacts.vk}</ul>
+					<ul>{profile.contacts.instagram}</ul>
+					<ul>{profile.contacts.facebook}</ul>
 				</h3>
 			</div>
-			<img alt="img" src={props.profile.photos.large} />
+			<img alt="img" src={profile.photos.large} />
 		</div>
 	)
 }
