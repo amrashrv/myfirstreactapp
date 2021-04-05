@@ -18,8 +18,9 @@ let reducers = combineReducers({
     form: formReducer,
     app: appReducer
 });
+//connection to chrome Redux extention
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, /* preloadedState, */ composeEnhancers(applyMiddleware(thunkMiddleware)));
+const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
 window.__store__ = store;
 //export store to index.js
