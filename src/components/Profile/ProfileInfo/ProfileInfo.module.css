@@ -11,7 +11,7 @@
 }
 .description img{
   grid-area:a;
-  border-radius: 30%;
+  border-radius: 50%;
   height: 150px;
   width: 150px;
   padding: 10px;

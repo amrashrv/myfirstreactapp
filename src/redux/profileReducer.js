@@ -4,6 +4,7 @@ const add_post = 'Add-post';
 const SET_USER_PROFILE = 'SET-USER-PROFILE';
 const SET_STATUS = 'SET-STATUS';
 const DELETE_POST = 'DELETE-POST';
+const SET_PHOTO = 'SET-PHOTO'
 
 
 let initialState = {//default object
@@ -14,6 +15,7 @@ let initialState = {//default object
     ],
     profile: null,
     status: "",
+    file: null,
     isFetching: false
 };
 
@@ -40,6 +42,9 @@ const profileReducer = (state = initialState, action) => {
         case SET_STATUS: {
             return { ...state, status: action.status }
         }
+        case SET_PHOTO: {
+            return {...state, profile: {...state.profile, photos: action.photos}}
+        }
         default:
             return state;
     }
@@ -58,6 +63,10 @@ export const setStatus = (status) => ({
     type: SET_STATUS,
     status
 });
+export const setPhoto = (photos) => ({
+    type: SET_PHOTO, 
+    photos
+})
 export const getUserProfile = (userId) => async (dispatch) => {
     let response = await profileAPI.getProfile(userId);
     dispatch(setUserProfile(response.data));
@@ -71,6 +80,12 @@ export const updateStatus = (status) => async (dispatch) => {
     if (response.data.resultCode === 0) {
         dispatch(setStatus(status));
 
+    }
+}
+export const savePhoto = (file) => async (dispatch) =>{
+    let response = await profileAPI.savePhoto(file)
+    if (response.data.resultCode === 0){
+        dispatch(setPhoto(response.data.data.photos))
     }
 }
 export default profileReducer;

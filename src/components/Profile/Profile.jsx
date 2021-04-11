@@ -9,6 +9,8 @@ const Profile = (props) => {
 		
 		<div className={classes.backgroundBlock}>
 			<ProfileInfo
+				savePhoto={props.savePhoto}
+				isOwner={props.isOwner}
 				profile={props.profile}
 				status={props.status}
 				updateStatus={props.updateStatus} />
