@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect, Provider } from 'react-redux';
-import { BrowserRouter, Route, withRouter } from 'react-router-dom';
+import { HashRouter, Route, withRouter } from 'react-router-dom';
 import { compose } from 'redux';
 import './App.css';
 import Preloader from './components/common/preloader/preloader';
@@ -62,11 +62,11 @@ const AppContainer = compose(
 const SamuraiJSApp = (props) => {
 	return (
 		<React.StrictMode>
-			<BrowserRouter basename={process.env.PUBLIC_URL}>
+			<HashRouter basename={process.env.PUBLIC_URL}>
 				<Provider store={store}>
 					<AppContainer />
 				</Provider>
-			</BrowserRouter>
+			</HashRouter>
 		</React.StrictMode>
 	)
 }
