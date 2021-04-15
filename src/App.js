@@ -61,13 +61,13 @@ const AppContainer = compose(
 
 const SamuraiJSApp = (props) => {
 	return (
-		<React.StrictMode>
+		
 			<HashRouter>
 				<Provider store={store}>
 					<AppContainer />
 				</Provider>
 			</HashRouter>
-		</React.StrictMode>
+		
 	)
 }
 export default SamuraiJSApp;
