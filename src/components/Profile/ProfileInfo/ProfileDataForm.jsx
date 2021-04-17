@@ -2,6 +2,7 @@ import classes from './ProfileInfo.module.css';
 import React from 'react';
 import { reduxForm } from 'redux-form';
 import { createField, Input, Textarea } from '../../common/formsControls/formsControls';
+import style from '../../common/formsControls/formsControls.module.css'
 
 const ProfileDataForm = ({handleSubmit, profile, error}) => {
 	return (
@@ -9,7 +10,7 @@ const ProfileDataForm = ({handleSubmit, profile, error}) => {
 			<div>
 				<button>Save</button>
 			</div>
-				{error && <div className={classes.formSummaryError}></div>}
+				{error && <div className={style.formSummaryError}>{error}</div>}
 			<div>
 				<b>Full name:</b> {createField("Full name", "fullName", Input, [])}
 			</div>

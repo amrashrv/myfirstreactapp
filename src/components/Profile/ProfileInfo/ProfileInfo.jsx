@@ -12,15 +12,19 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
 	if (!profile) {
 		return <Preloader />
 	}
+	
 	const onMainPhotoSelected = (e) => {
 		if (e.target.files.length) {
 			savePhoto(e.target.files[0]);
 		}
 	}
+
 	const onSubmit = (formData) => {
-		saveProfile(formData);
-		//setEditMode(false);
+		saveProfile(formData).then(() => {
+			setEditMode(false);
+		});
 	}
+
 	return (
 		<div className={classes.description}>
 			<div className={classes.profileInf}>
@@ -29,9 +33,9 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
 					status={status}
 					updateStatus={updateStatus} />
 				<div>
-					{editMode 
-					? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit}/> 
-					: <ProfileData goToEditMode={() => {setEditMode(true)}}profile={profile} isOwner={isOwner}/>}
+					{editMode
+						? <ProfileDataReduxForm initialValues={profile} profile={profile} onSubmit={onSubmit} />
+						: <ProfileData goToEditMode={() => { setEditMode(true) }} profile={profile} isOwner={isOwner} />}
 				</div>
 
 			</div>
@@ -41,7 +45,7 @@ const ProfileInfo = ({ profile, updateStatus, status, isOwner, savePhoto, savePr
 	)
 }
 
-const ProfileData = ({ profile, isOwner, goToEditMode}) => {
+const ProfileData = ({ profile, isOwner, goToEditMode }) => {
 	return (
 		<div>
 			<div>
