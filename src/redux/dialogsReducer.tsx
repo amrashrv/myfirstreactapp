@@ -1,4 +1,6 @@
-const SEND_MESSAGE = 'SEND-MESSAGE';
+const SEND_MESSAGE: string = 'SEND-MESSAGE';
+
+//type initialStateType = typeof initialState;
 
 let initialState = {
 
@@ -17,7 +19,7 @@ let initialState = {
 
 }
 
-const dialogsReducer = (state = initialState, action) => {
+const dialogsReducer = (state =  initialState, action: any) => {
     switch (action.type) {
         case SEND_MESSAGE:{
             let body = action.newMessageBody;
@@ -29,7 +31,7 @@ const dialogsReducer = (state = initialState, action) => {
             return state;
     }
 };
-export const sendMessageCreator = (newMessageBody) => ({
+export const sendMessageCreator = (newMessageBody: any) => ({
     type: SEND_MESSAGE, newMessageBody
 });
 
