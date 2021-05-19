@@ -6,10 +6,12 @@ import usersReducer from "./usersReducer";
 import thunkMiddleware from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
 import appReducer from "./appReducer";
-import dialogsReducer from "./dialogsReducer.tsx";
+import dialogsReducer from "./dialogsReducer";
+
+
 
 //combine all reducers into one with the help of Redux.
-let reducers = combineReducers({
+let rootReducer = combineReducers({
     dialogsPage: dialogsReducer,
     profilePage: profileReducer,
     sidebar: sidebarReducer,
@@ -18,10 +20,16 @@ let reducers = combineReducers({
     form: formReducer,
     app: appReducer
 });
-//connection to chrome Redux extention
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-const store = createStore(reducers, composeEnhancers(applyMiddleware(thunkMiddleware)));
 
+type rootReducerType = typeof rootReducer; //(state: globalstate) => globalstate
+export type appStateType = ReturnType<rootReducerType>
+
+
+//connection to chrome Redux extention
+//@ts-ignore
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMiddleware)));
+//@ts-ignore
 window.__store__ = store;
 //export store to index.js
 export default store;
