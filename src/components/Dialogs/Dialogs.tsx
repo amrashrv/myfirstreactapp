@@ -8,16 +8,16 @@ import classes from './Dialogs.module.css';
 import Message from './Message/Message';
 
 
-const Dialogs = (props) => {
+const Dialogs = (props: any) => {
     let state = props.dialogsPage;
 
     let dialogsElements = state.dialogs
-        .map(dialog => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />);
+        .map((dialog:any) => <DialogItem name={dialog.name} key={dialog.id} id={dialog.id} />);
 
     let messagesElements = state.messages
-        .map(message => <Message message={message.message} key={message.id} />);
+        .map((message:any) => <Message message={message.message} key={message.id} />);
     
-    let addNewMessage = (values) => {
+    let addNewMessage = (values: any) => {
 		props.sendMessage(values.newMessageBody)
     }
     if (!props.isAuth) return <Redirect to="/Login" />
@@ -34,7 +34,7 @@ const Dialogs = (props) => {
     )
 }
 const maxLength50 = maxLengthCreator(50)
-const AddMessageForm = (props) => {
+const AddMessageForm = (props:any) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <Field 

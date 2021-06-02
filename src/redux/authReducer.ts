@@ -1,16 +1,10 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, securityAPI } from "../api/api";
+import { authAPI, ResultCodeEnum, ResultCodeForCaptcha, securityAPI } from "../api/api";
 
 const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
 
-// export type InitialStateType = {
-//     userId: number | null;
-//     email: string | null,
-//     login: string | null,
-//     isAuth: boolean,
-//     captchaUrl: string | null
-// }
+
 
 let initialState = {
     userId: null as number| null,
@@ -53,23 +47,23 @@ type GetCaptchaUrlSuccessType = {
 export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessType => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}})
 
 export const getAuthUserData = () => async (dispatch: any) => {
-    let response = await authAPI.getHeader()
-
-    if (response.data.resultCode === 0) {
-        let { id, login, email } = response.data.data;
+    let authData = await authAPI.getHeader()
+    
+    if (authData.resultCode === ResultCodeEnum.success) {
+        let { id, login, email } = authData.data;
         dispatch(setAuthUserData(id, email, login, true));
     }
 }
 export const login = (email: string, password: string , rememberMe: boolean, captcha: string) => async (dispatch: any) => {
-    let response = await authAPI.login(email, password, rememberMe, captcha)
-    if (response.data.resultCode === 0) {
+    let loginData = await authAPI.login(email, password, rememberMe, captcha)
+    if (loginData.resultCode === 0) {
         //success, getAuthData
         dispatch(getAuthUserData())
     } else {
-        if (response.data.resultCode === 10) {
+        if (loginData.resultCode === ResultCodeForCaptcha.captchaIsRequired) {
             dispatch(getCaptchaUrl());
         }
-        let message = response.data.messages.length > 0 ? response.data.messages[0] : "Some error";
+        let message = loginData.messages.length > 0 ? loginData.messages[0] : "Some error";
         dispatch(stopSubmit("login", { _error: message }));
     }
 

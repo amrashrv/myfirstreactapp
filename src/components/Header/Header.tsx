@@ -2,8 +2,10 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
 import imageSrc from './pngegg.png'
-
-const Header = (props) => {
+type propsType = {
+    props: any
+}
+const Header = (props: any): propsType => {
     return (
         <header className={classes.header}>
             <img title="logo" src={imageSrc} alt="logo" />
