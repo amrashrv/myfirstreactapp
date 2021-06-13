@@ -1,5 +1,7 @@
 import { stopSubmit } from "redux-form";
-import { authAPI, ResultCodeEnum, ResultCodeForCaptcha, securityAPI } from "../api/api";
+import { ResultCodeEnum, ResultCodeForCaptchaEnum } from "../api/api";
+import { securityAPI } from "../api/securityAPI";
+import { authAPI } from "../api/authAPI";
 
 const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA';
 const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
@@ -56,11 +58,11 @@ export const getAuthUserData = () => async (dispatch: any) => {
 }
 export const login = (email: string, password: string , rememberMe: boolean, captcha: string) => async (dispatch: any) => {
     let loginData = await authAPI.login(email, password, rememberMe, captcha)
-    if (loginData.resultCode === 0) {
+    if (loginData.resultCode === ResultCodeEnum.success) {
         //success, getAuthData
         dispatch(getAuthUserData())
     } else {
-        if (loginData.resultCode === ResultCodeForCaptcha.captchaIsRequired) {
+        if (loginData.resultCode === ResultCodeForCaptchaEnum.captchaIsRequired) {
             dispatch(getCaptchaUrl());
         }
         let message = loginData.messages.length > 0 ? loginData.messages[0] : "Some error";
@@ -69,8 +71,8 @@ export const login = (email: string, password: string , rememberMe: boolean, cap
 
 }
 export const getCaptchaUrl = () => async (dispatch: any) => {
-    const response = await securityAPI.getCaptchaUrl();
-    const captchaUrl = response.data.url;
+    const data = await securityAPI.getCaptchaUrl();
+    const captchaUrl = data.url;
     dispatch(getCaptchaUrlSuccess(captchaUrl));
 }
 export const logout = () => async (dispatch: any) => {
