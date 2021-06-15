@@ -18,7 +18,7 @@ export const profileAPI = {
     saveProfile(profile: profileType) {
         return instance.put<responseType>(`profile`, profile).then(res => res.data);
     },
-    savePhoto(photoFile: any) {
+    savePhoto(photoFile: File) {
         const formData = new FormData();
         formData.append("image", photoFile);
         return instance.put<responseType<savePhotoResponseDataType>>(`profile/photo`, formData, {

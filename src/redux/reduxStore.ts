@@ -1,9 +1,9 @@
-import { applyMiddleware, combineReducers, compose, createStore } from "redux";
+import { Action, applyMiddleware, combineReducers, compose, createStore } from "redux";
 import authReducer from "./authReducer";
 import profileReducer from "./profileReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer from "./usersReducer";
-import thunkMiddleware from "redux-thunk";
+import thunkMiddleware, { ThunkAction } from "redux-thunk";
 import {reducer as formReducer} from "redux-form";
 import appReducer from "./appReducer";
 import dialogsReducer from "./dialogsReducer";
@@ -21,11 +21,7 @@ let rootReducer = combineReducers({
     app: appReducer
 });
 
-type rootReducerType = typeof rootReducer; //(state: globalstate) => globalstate
-export type appStateType = ReturnType<rootReducerType>
 
-type PropertiesType<T> = T extends {[key: string]: infer U} ? U: never 
-export type InferActionsType<T extends {[key: string]:(...args: any[])=> any} > = ReturnType<PropertiesType<T>>
 
 //connection to chrome Redux extention
 //@ts-ignore
@@ -35,3 +31,12 @@ const store = createStore(rootReducer, composeEnhancers(applyMiddleware(thunkMid
 window.__store__ = store;
 //export store to index.js
 export default store;
+
+//types
+type rootReducerType = typeof rootReducer; //(state: globalstate) => globalstate
+export type appStateType = ReturnType<rootReducerType>
+
+type PropertiesType<T> = T extends {[key: string]: infer U} ? U: never 
+export type InferActionsType<T extends {[key: string]:(...args: any[])=> any} > = ReturnType<PropertiesType<T>>
+
+export type BaseThunkType<A extends Action, R = Promise<void>> = ThunkAction<R, appStateType, unknown, A>

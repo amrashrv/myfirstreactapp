@@ -1,12 +1,8 @@
-import { stopSubmit } from "redux-form";
+import { FormAction, stopSubmit } from "redux-form";
 import { ResultCodeEnum, ResultCodeForCaptchaEnum } from "../api/api";
 import { securityAPI } from "../api/securityAPI";
 import { authAPI } from "../api/authAPI";
-
-const SET_USER_DATA = 'samurai-network/auth/SET-USER-DATA';
-const GET_CAPTCHA_URL_SUCCESS = 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS';
-
-
+import { BaseThunkType, InferActionsType } from "./reduxStore";
 
 let initialState = {
     userId: null as number| null,
@@ -15,11 +11,10 @@ let initialState = {
     isAuth: false as boolean,
     captchaUrl: null as string| null
 };
-export type InitialStateType = typeof initialState;
 const authReducer = (state = initialState, action: any): InitialStateType => {
     switch (action.type) {
-        case SET_USER_DATA:
-        case GET_CAPTCHA_URL_SUCCESS:
+        case 'samurai-network/auth/SET-USER-DATA':
+        case 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS':
             return {
                 usrId: "any string",
                 ...state,
@@ -29,34 +24,20 @@ const authReducer = (state = initialState, action: any): InitialStateType => {
             return state;
     }
 }
-type setAuthUserDataPayloadType = {
-    userId: number | null
-    email: string | null
-    login: string | null
-    isAuth: boolean
-}
-type setAuthUserDataType = {
-    type: typeof SET_USER_DATA,
-    payload: setAuthUserDataPayloadType
-}
+export const actions = {
+    setAuthUserData: (userId: number | null, email: string | null, login: string | null, isAuth: boolean) => ({ type: 'samurai-network/auth/SET-USER-DATA', payload: { userId, email, login, isAuth } } as const),
+    getCaptchaUrlSuccess: (captchaUrl: string) => ({ type: 'samurai-network/auth/GET_CAPTCHA_URL_SUCCESS', payload: {captchaUrl}} as const),
 
-export const setAuthUserData = (userId: number | null, email: string | null, login: string | null, isAuth: boolean): setAuthUserDataType => ({ type: SET_USER_DATA, payload: { userId, email, login, isAuth } });
-
-type GetCaptchaUrlSuccessType = {
-    type: typeof GET_CAPTCHA_URL_SUCCESS,
-    payload: {captchaUrl: string}
 }
-export const getCaptchaUrlSuccess = (captchaUrl: string): GetCaptchaUrlSuccessType => ({ type: GET_CAPTCHA_URL_SUCCESS, payload: {captchaUrl}})
-
-export const getAuthUserData = () => async (dispatch: any) => {
+export const getAuthUserData = (): ThunkType => async (dispatch) => {
     let authData = await authAPI.getHeader()
     
     if (authData.resultCode === ResultCodeEnum.success) {
         let { id, login, email } = authData.data;
-        dispatch(setAuthUserData(id, email, login, true));
+        dispatch(actions.setAuthUserData(id, email, login, true));
     }
 }
-export const login = (email: string, password: string , rememberMe: boolean, captcha: string) => async (dispatch: any) => {
+export const login = (email: string, password: string , rememberMe: boolean, captcha: string): ThunkType => async (dispatch) => {
     let loginData = await authAPI.login(email, password, rememberMe, captcha)
     if (loginData.resultCode === ResultCodeEnum.success) {
         //success, getAuthData
@@ -70,12 +51,12 @@ export const login = (email: string, password: string , rememberMe: boolean, cap
     }
 
 }
-export const getCaptchaUrl = () => async (dispatch: any) => {
+export const getCaptchaUrl = ():ThunkType => async (dispatch) => {
     const data = await securityAPI.getCaptchaUrl();
     const captchaUrl = data.url;
-    dispatch(getCaptchaUrlSuccess(captchaUrl));
+    dispatch(actions.getCaptchaUrlSuccess(captchaUrl));
 }
-export const logout = () => async (dispatch: any) => {
+export const logout = ():ThunkType => async (dispatch) => {
     let response = await authAPI.logout()
 
     if (response.data.resultCode === 0) {
@@ -84,3 +65,8 @@ export const logout = () => async (dispatch: any) => {
 
 }
 export default authReducer;
+
+//types
+export type InitialStateType = typeof initialState;
+type ActionsType = InferActionsType<typeof actions>
+type ThunkType = BaseThunkType<ActionsType | FormAction>
