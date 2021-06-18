@@ -1,14 +1,15 @@
 import React from 'react';
-import { Redirect } from 'react-router';
-import { Field, reduxForm } from 'redux-form';
+import { InjectedFormProps, reduxForm } from 'redux-form';
+import { initialStateType } from '../../redux/dialogsReducer';
+
 import { maxLengthCreator, required } from '../../utils/validators/validators';
-import { Textarea } from '../common/formsControls/formsControls';
+import { createField, Textarea } from '../common/formsControls/formsControls';
 import DialogItem from './DialogItem/DialogItem';
 import classes from './Dialogs.module.css';
 import Message from './Message/Message';
 
 
-const Dialogs = (props: any) => {
+const Dialogs: React.FC<OwnPropsType> = (props) => {
     let state = props.dialogsPage;
 
     let dialogsElements = state.dialogs
@@ -17,10 +18,9 @@ const Dialogs = (props: any) => {
     let messagesElements = state.messages
         .map((message:any) => <Message message={message.message} key={message.id} />);
     
-    let addNewMessage = (values: any) => {
+    let addNewMessage = (values: NewMessageFormType) => {
 		props.sendMessage(values.newMessageBody)
     }
-    if (!props.isAuth) return <Redirect to="/Login" />
     return (
         <div className={classes.dialogs}>
             <div className={classes.dialogsItems}>
@@ -34,20 +34,25 @@ const Dialogs = (props: any) => {
     )
 }
 const maxLength50 = maxLengthCreator(50)
-const AddMessageForm = (props:any) => {
+const AddMessageForm: React.FC<InjectedFormProps<NewMessageFormType>> = (props:any) => {
     return (
         <form onSubmit={props.handleSubmit}>
-            <Field 
-            component={Textarea} 
-            name="newMessageBody" 
-            placeholder='Enter your message'
-            validate={[required, maxLength50]}/>
+            {createField<NewMessageFormValuesType>('Enter your message', "newMessageBody", Textarea, [required, maxLength50])} 
             <div>
                 <button>Send</button>
             </div>
         </form>
     )
 }
-
-const AddMessageFormRedux = reduxForm({form: 'dialogAddMessageForm'})(AddMessageForm);
+const AddMessageFormRedux = reduxForm<NewMessageFormType>({form: 'dialogAddMessageForm'})(AddMessageForm);
 export default Dialogs;
+//types
+
+type OwnPropsType = {
+    dialogsPage: initialStateType,
+    sendMessage: (messageText: string) => void,
+}
+export type NewMessageFormType= {
+    newMessageBody: string,    
+}
+type NewMessageFormValuesType = Extract<keyof NewMessageFormType, string>
