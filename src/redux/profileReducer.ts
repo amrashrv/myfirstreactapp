@@ -11,7 +11,6 @@ let initialState = {//default object
     ] as Array<postsType>,
     profile: null as profileType | null,
     status: "",
-    newPostText: ''
 };
 const profileReducer = (state = initialState, action: any): initialStateType => {
     switch (action.type) {
@@ -24,7 +23,6 @@ const profileReducer = (state = initialState, action: any): initialStateType => 
             return {
                 ...state,
                 posts: [...state.posts, newPost],
-                newPostText: ''
             }
         }
         case 'sn/profile/DELETE-POST': {

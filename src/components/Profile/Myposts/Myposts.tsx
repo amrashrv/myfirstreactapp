@@ -19,7 +19,7 @@ const AddPostForm: React.FC<InjectedFormProps<AddPostFormValuesType> & PropsType
 	)
 }
 const AddPostFormRedux = reduxForm<AddPostFormValuesType, PropsType>({ form: 'AddNewPostForm' })(AddPostForm);
-const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
+const MyPosts: React.FC<MyPostsPropsType & DispatchPropsType> = React.memo(props => {
 
 	let postsElements = [...props.posts]
 		.reverse()
@@ -42,8 +42,11 @@ const MyPosts: React.FC<MyPostsPropsType> = React.memo(props => {
 export default MyPosts;
 //types
 type PropsType = {}
-type MyPostsPropsType = {
+
+export type MyPostsPropsType = {
 	posts: Array<postsType>
+}
+export type DispatchPropsType = {
 	addPost: (newPostBody: string) => void
 }
 type AddPostFormValuesKyesType = GetStringKeys<AddPostFormValuesType>
