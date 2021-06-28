@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-useless-constructor */
 import React from 'react';
 import { connect } from 'react-redux';
 import { RouteComponentProps, withRouter } from 'react-router';
@@ -9,6 +10,9 @@ import { profileType } from '../../types/types';
 import Profile from './Profile';
 
 class ProfileContainer extends React.Component<PropsType> {
+	constructor(props: PropsType) {
+		super(props);
+	}
 	refreshProfile(){
 		let userId: number | null = +this.props.match.params.userId;
 		if (!userId) {
@@ -31,6 +35,8 @@ class ProfileContainer extends React.Component<PropsType> {
 	componentDidUpdate(prevProps: PropsType, prevState: PropsType){
 		if (this.props.match.params.userId !== prevProps.match.params.userId)
 		this.refreshProfile()
+	}
+	componentWillUnmount(): void {
 	}
 	render() {
 		//console.log("render profile")

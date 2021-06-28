@@ -5,12 +5,12 @@ import classNames from 'classnames';
 type propsType = {
     totalItemsCount: number,
     pageSize: number,
-    currentPage: number,
-    onPageChanged: (pageNumber: number) => void,
+    currentPage?: number,
+    onPageChanged?: (pageNumber: number) => void,
     portionSize?: number
 }
 
-let Paginator: React.FC<propsType> = ({totalItemsCount, pageSize, currentPage, onPageChanged, portionSize = 20}) => {
+let Paginator: React.FC<propsType> = ({totalItemsCount, pageSize, currentPage = 1, onPageChanged = x => x, portionSize = 10}) => {
     let pagesCount = Math.ceil(totalItemsCount / pageSize);
 
     let pages: Array<number> = [];
@@ -36,11 +36,12 @@ let Paginator: React.FC<propsType> = ({totalItemsCount, pageSize, currentPage, o
                     return (
                         <span className={classNames({[classes.selectedPage] : currentPage === page}, classes.pageNumber)} 
                             key={page}
-                            onClick={(e) => { onPageChanged(page) }}>{page}</span>
+                            onClick={(e) => { onPageChanged(page)}}>{page}</span>
                     );
                 })}
                 {portionCount > portionNumber &&
                 <button onClick={() => {setPortionNumber(portionNumber + 1)}}>Next</button>}
+
             </div>
         )
 }
