@@ -32,7 +32,7 @@ export type getItemsType = {
     totalCount: number
     error: string | null
 }
-export type responseType<D = {}, RC = ResultCodeEnum> = {
+export type responseType< D = {},  RC = ResultCodeEnum> = {
     data: D,
     messages: Array<string>,
     resultCode: RC

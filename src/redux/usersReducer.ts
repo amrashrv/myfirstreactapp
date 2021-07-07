@@ -1,4 +1,5 @@
 import { Dispatch } from 'redux';
+import { responseType } from '../api/api';
 import { usersAPI } from '../api/usersAPI';
 import { usersType } from '../types/types';
 import { updateObjectInArray } from '../utils/objectHelpers';
@@ -69,34 +70,39 @@ export const actions = {
 export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch: DispatchType, getState: GetStateType) => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page));
+
     let data = await usersAPI.requestUsers(page, pageSize);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
 }
 // common method for follow and unfollow
-const _followUnfollowFlow = async (dispatch: DispatchType, userId: number, apiMethod: any, actionCreator: (userId: number) => ActionsTypes) => {
+const _followUnfollowFlow = async (
+    dispatch: DispatchType, 
+    userId: number, 
+    apiMethod: (userId: number) => Promise<responseType>, 
+    actionCreator: (userId: number) => ActionsTypes) => {
     dispatch(actions.toggleFollowingProgress(true, userId));
     let response = await apiMethod(userId)
-    if (response.data.resultCode === 0) {
+    if (response.resultCode === 0) {
         dispatch(actionCreator(userId));
     }
     dispatch(actions.toggleFollowingProgress(false, userId));
 }
 export const follow = (userId: number): ThunkType => {
     return async (dispatch) => {
-        _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess);
+        await _followUnfollowFlow(dispatch, userId, usersAPI.follow.bind(usersAPI), actions.followSuccess);
     }
 }
 export const unfollow = (userId: number): ThunkType => {
     return async (dispatch) => {
-        _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess);
+        await _followUnfollowFlow(dispatch, userId, usersAPI.unfollow.bind(usersAPI), actions.unfollowSuccess);
     }
 }
 export default usersReducer;
 
 //types
-type initialStateType = typeof initialState;
+export type initialStateType = typeof initialState;
 type ActionsTypes = InferActionsType<typeof actions>
 type GetStateType = () => appStateType;
 type DispatchType = Dispatch<ActionsTypes>;
