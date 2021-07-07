@@ -13,6 +13,9 @@ let initialState = {
     currentPage: 2,
     isFetching: false,
     followingInProgress: [] as Array<number>, //array of usersId
+    filter: {
+        term: ''
+    }
 }
 
 
@@ -48,6 +51,9 @@ export const usersReducer = (state = initialState, action: ActionsTypes): initia
                     : state.followingInProgress.filter(id => id !== action.userId)
             }
         }
+        case "SN/USERS/SET_FILTER": {
+            return {...state, filter: action.payload}
+        }
         default:
             return state;
     }
@@ -62,16 +68,18 @@ export const actions = {
     setCurrentPage: (currentPage: number) => ({ type: "SET_CURRENT_PAGE", currentPage } as const),
     setTotalUsersCount: (totalUsersCount: number) => ({ type: "SET_TOTAL_USERS_COUNT", count: totalUsersCount } as const),
     toggleIsFetching: (isFetching: boolean) => ({ type: "TOGGLE_IS_FETCHING", isFetching } as const),
-    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: "TOGGLE_FOLLOWING_IN_PROSGRESS", isFetching, userId } as const)
+    toggleFollowingProgress: (isFetching: boolean, userId: number) => ({ type: "TOGGLE_FOLLOWING_IN_PROSGRESS", isFetching, userId } as const),
+    setFilter: (term: string) => ({ type: "SN/USERS/SET_FILTER", payload:{term} } as const)
 }
 
 
 
-export const requestUsers = (page: number, pageSize: number): ThunkType => async (dispatch: DispatchType, getState: GetStateType) => {
+export const requestUsers = (page: number, pageSize: number, term: string): ThunkType => async (dispatch: DispatchType, getState: GetStateType) => {
     dispatch(actions.toggleIsFetching(true));
     dispatch(actions.setCurrentPage(page));
+    dispatch(actions.setFilter(term))
 
-    let data = await usersAPI.requestUsers(page, pageSize);
+    let data = await usersAPI.requestUsers(page, pageSize, term);
     dispatch(actions.toggleIsFetching(false));
     dispatch(actions.setUsers(data.items));
     dispatch(actions.setTotalUsersCount(data.totalCount));
@@ -103,6 +111,7 @@ export default usersReducer;
 
 //types
 export type initialStateType = typeof initialState;
+export type FilterType = typeof initialState.filter;
 type ActionsTypes = InferActionsType<typeof actions>
 type GetStateType = () => appStateType;
 type DispatchType = Dispatch<ActionsTypes>;

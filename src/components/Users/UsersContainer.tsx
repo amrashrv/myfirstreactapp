@@ -2,42 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { appStateType } from '../../redux/reduxStore';
-import { follow, unfollow, requestUsers} from '../../redux/usersReducer';
+import { follow, unfollow, requestUsers, FilterType} from '../../redux/usersReducer';
 import { getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress, getUsers} from '../../redux/usersSelectors';
 import { usersType } from '../../types/types';
 import Preloader from '../common/preloader/preloader';
 import Users from './Users';
 
-type mapStatepropsType ={
-	currentPage: number,
-	pageSize: number,
-	isFetching: boolean,
-	totalUsersCount: number,
-	users: Array<usersType>,
-	followingInProgress: Array<number>
-	
-}
-type ownPropsType ={
-	pageTitle: string
-	
-}
-type mapDispatchepropsType ={
-	follow: (userId: number) => void,
-	unfollow: (userId: number) => void,
-	getUsers: (currentPage: number, pageSize: number) => void,
-	
-}
-
-type propsType = mapStatepropsType & mapDispatchepropsType & ownPropsType
-
 class UsersContainer extends React.Component<propsType> {
 	componentDidMount() {
 		let {currentPage, pageSize} = this.props
-		this.props.getUsers(currentPage, pageSize);
+		this.props.getUsers(currentPage, pageSize, "");
 	}
 	onPageChanged = (pageNumber: number) => {
 		let {pageSize} = this.props;
-		this.props.getUsers(pageNumber, pageSize);
+		this.props.getUsers(pageNumber, pageSize, "");
+	}
+	onFilterChanged = (filter: FilterType) => {
+		const {pageSize, currentPage} = this.props;
+		this.props.getUsers(currentPage, pageSize, filter.term)
 	}
 	render() {
 		
@@ -54,6 +36,7 @@ class UsersContainer extends React.Component<propsType> {
 			follow={this.props.follow}
 			unfollow={this.props.unfollow}
 			followingInProgress={this.props.followingInProgress}
+			onFilterChanged={this.onFilterChanged}
 		/>
 		</>
 	}
@@ -73,5 +56,28 @@ let mapStateToProps = (state: appStateType): mapStatepropsType => {
 //redirecting to Login page if user is not logined
 export default compose(
 	//withAuthRedirect,
-	connect<mapStatepropsType, mapDispatchepropsType, ownPropsType, appStateType>(mapStateToProps, {follow, unfollow, getUsers: requestUsers}),
+	connect<mapStatepropsType, mapDispatchepropsType, ownPropsType, appStateType>(mapStateToProps, {follow, unfollow,  getUsers: requestUsers}),
 )(UsersContainer)
+
+//types
+type mapStatepropsType ={
+	currentPage: number,
+	pageSize: number,
+	isFetching: boolean,
+	totalUsersCount: number,
+	users: Array<usersType>,
+	followingInProgress: Array<number>
+	
+}
+type ownPropsType ={
+	pageTitle: string
+	
+}
+type mapDispatchepropsType ={
+	follow: (userId: number) => void,
+	unfollow: (userId: number) => void,
+	getUsers: (currentPage: number, pageSize: number, term: string) => void,
+	
+}
+
+type propsType = mapStatepropsType & mapDispatchepropsType & ownPropsType
