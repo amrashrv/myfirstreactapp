@@ -1,8 +1,8 @@
 import { getItemsType, instance, responseType } from "./api";
 
 export const usersAPI = {
-    requestUsers(currentPage = 1, pageSize = 10, term: string = '') {
-        return instance.get<getItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}`)
+    requestUsers(currentPage = 1, pageSize = 10, term: string = '', friend: null | boolean = null) {
+        return instance.get<getItemsType>(`users?page=${currentPage}&count=${pageSize}&term=${term}` + (friend === null? '': `&friend=${friend}`))
             .then(res => res.data)
     },
     follow(userId: number) {

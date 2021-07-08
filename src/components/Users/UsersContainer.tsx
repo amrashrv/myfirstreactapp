@@ -3,23 +3,23 @@ import { connect } from 'react-redux';
 import { compose } from 'redux';
 import { appStateType } from '../../redux/reduxStore';
 import { follow, unfollow, requestUsers, FilterType} from '../../redux/usersReducer';
-import { getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress, getUsers} from '../../redux/usersSelectors';
+import { getPageSize, getTotalUsersCount, getCurrentPage, getIsFetching, getFollowingInProgress, getUsers, getUsersFilter} from '../../redux/usersSelectors';
 import { usersType } from '../../types/types';
 import Preloader from '../common/preloader/preloader';
 import Users from './Users';
 
 class UsersContainer extends React.Component<propsType> {
 	componentDidMount() {
-		let {currentPage, pageSize} = this.props
-		this.props.getUsers(currentPage, pageSize, "");
+		let {currentPage, pageSize, filter} = this.props
+		this.props.getUsers(currentPage, pageSize, filter);
 	}
 	onPageChanged = (pageNumber: number) => {
-		let {pageSize} = this.props;
-		this.props.getUsers(pageNumber, pageSize, "");
+		let {pageSize, filter} = this.props;
+		this.props.getUsers(pageNumber, pageSize, filter);
 	}
 	onFilterChanged = (filter: FilterType) => {
-		const {pageSize, currentPage} = this.props;
-		this.props.getUsers(currentPage, pageSize, filter.term)
+		const {pageSize} = this.props;
+		this.props.getUsers(1, pageSize, filter)
 	}
 	render() {
 		
@@ -50,7 +50,8 @@ let mapStateToProps = (state: appStateType): mapStatepropsType => {
 		totalUsersCount: getTotalUsersCount(state),
 		currentPage: getCurrentPage(state),
 		isFetching: getIsFetching(state),
-		followingInProgress: getFollowingInProgress(state)
+		followingInProgress: getFollowingInProgress(state),
+		filter: getUsersFilter(state)
 	}
 }
 //redirecting to Login page if user is not logined
@@ -67,6 +68,7 @@ type mapStatepropsType ={
 	totalUsersCount: number,
 	users: Array<usersType>,
 	followingInProgress: Array<number>
+	filter: FilterType
 	
 }
 type ownPropsType ={
@@ -76,7 +78,7 @@ type ownPropsType ={
 type mapDispatchepropsType ={
 	follow: (userId: number) => void,
 	unfollow: (userId: number) => void,
-	getUsers: (currentPage: number, pageSize: number, term: string) => void,
+	getUsers: (currentPage: number, pageSize: number, filter: FilterType) => void,
 	
 }
 
