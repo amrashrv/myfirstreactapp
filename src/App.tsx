@@ -5,12 +5,12 @@ import { compose } from 'redux';
 import './App.css';
 import Preloader from './components/common/preloader/preloader';
 import HeaderContainer from './components/Header/HeaderContainer';
-import LoginPage from './components/Login/Login';
+import {Login} from './components/Login/Login';
 import Music from './components/Music/Music';
 import Navbar from './components/Navbar/Navbar';
 import News from './components/News/News';
 import Settings from './components/Settings/Settings';
-import UsersContainer from './components/Users/UsersContainer';
+import UsersPage from './components/Users/UsersContainer';
 import { withSuspense } from './hoc/withSuspense';
 import { initializeApp } from './redux/appReducer';
 import store, { appStateType } from './redux/reduxStore';
@@ -47,8 +47,8 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 							<Route exact path="/" render={() => <Redirect to={'/Profile'}/>} />	
 							<Route path="/Dialogs" render={() => <SuspendedDialogs/>} />
 							<Route path="/Profile/:userId?" component={withSuspense(ProfileContainer)} />
-							<Route path="/Users" render={() => <UsersContainer pageTitle={'Samurai'} />} />
-							<Route path="/Login" render={() => <LoginPage />} />
+							<Route path="/Users" render={() => <UsersPage pageTitle={'Samurai'} />} />
+							<Route path="/Login" render={() => <Login/>} />
 							<Route path="/News" component={News} />
 							<Route path="/Music" component={Music} />
 							<Route path="/Settings" component={Settings} />
