@@ -11,6 +11,12 @@ import * as queryString from 'querystring'
 type PropsType = {
 
 }
+type QueryParamsType = {
+    term?: string;
+    page?: string;
+    friend?: string;
+};
+
 export const Users: React.FC<PropsType> = (props) => {
 
     const totalUsersCount = useSelector(getTotalUsersCount);
@@ -23,15 +29,11 @@ export const Users: React.FC<PropsType> = (props) => {
     const dispatch = useDispatch();
     const history = useHistory();
 
-    useEffect(() => {
-        history.push({
-            pathname: '/users',
-            search: `?term=${filter.term}&friend=${filter.friend}&page=${currentPage}`
-        })
-    },[history, filter, currentPage]);
+   
 
     useEffect(() => {
-        const parsed = queryString.parse(history.location.search.substr(1)) as {term: string, page: string, friend: string};
+        
+        const parsed = queryString.parse(history.location.search.substr(1)) as QueryParamsType;
         let actualPage = currentPage 
         let actualFilter = filter
         if (!!parsed.page) actualPage = Number(parsed.page)
@@ -48,6 +50,19 @@ export const Users: React.FC<PropsType> = (props) => {
         }
         dispatch(requestUsers(actualPage, pageSize, actualFilter))
     },[])
+
+    useEffect(() => {
+        const query: QueryParamsType = {}
+        if(!!filter.term) query.term = filter.term;
+        if(filter.friend !== null) query.friend = String(filter.friend);
+        if(currentPage !== 1) query.page = String(currentPage);
+
+        history.push({
+            pathname: '/users',
+            search: queryString.stringify(query)
+        })
+    },[history, filter, currentPage]);
+
     const onPageChanged = (pageNumber: number) => {
         dispatch(requestUsers(pageNumber, pageSize, filter));
     }

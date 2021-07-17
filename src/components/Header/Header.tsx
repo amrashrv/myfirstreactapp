@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import classes from './Header.module.css';
 import imageSrc from './pngegg.png'
 
-const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
+const AppHeader: React.FC<MapPropsType & DispatchPropsType> = (props) => {
     return (
         <header className={classes.header}>
             <img title="logo" src={imageSrc} alt="logo" />
@@ -16,7 +16,7 @@ const Header: React.FC<MapPropsType & DispatchPropsType> = (props) => {
         </header>
     );
 }
-export default Header;
+export default AppHeader;
 //types
 export type MapPropsType = {
     isAuth: boolean,
