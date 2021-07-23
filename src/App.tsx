@@ -22,12 +22,16 @@ import {
 
 import { AppHeader } from './components/Header/Header';
 import SubMenu from 'antd/lib/menu/SubMenu';
+
 const DialogsContainer = React.lazy(() => import('./components/Dialogs/dialogsContainer'));
 const ProfileContainer = React.lazy(() => import('./components/Profile/profileContainer'));
+const ChatPage = React.lazy(() => import('./pages/chat/chatPage'));
 
 const { Sider, Content } = Layout;
 
-const SuspendedDialogs = withSuspense(DialogsContainer)
+
+const SuspendedDialogs = withSuspense(DialogsContainer);
+const SuspendedChatPage = withSuspense(ChatPage)
 class App extends Component<MapPropsType & DispatchPropsType> {
 	catchAllUnhandledErrors = (e: PromiseRejectionEvent) => {
 		alert("some error occured");
@@ -74,7 +78,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 								
 							</SubMenu>
 							<SubMenu key="sub3" icon={<NotificationOutlined />} title="subnav 3">
-								<Menu.Item key="9">option9</Menu.Item>
+								<Menu.Item key="9"><Link to="/ChatPage">Chat</Link></Menu.Item>
 								<Menu.Item key="10">option10</Menu.Item>
 								<Menu.Item key="11">option11</Menu.Item>
 								<Menu.Item key="12">option12</Menu.Item>
@@ -104,6 +108,7 @@ class App extends Component<MapPropsType & DispatchPropsType> {
 								<Route path="/News" component={News} />
 								<Route path="/Music" component={Music} />
 								<Route path="/Settings" component={Settings} />
+								<Route path="/ChatPage" render={() => <SuspendedChatPage/>}/>
 								<Route path="*" render={() => <div>404 Not Found</div>} />
 							</Switch>
 						</Content>
