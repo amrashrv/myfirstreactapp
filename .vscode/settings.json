@@ -1,0 +1,6 @@
+{
+    "[jsx]": {
+    "breadcrumbs.showFields": true,
+        "editor.autoClosingBrackets": "never"
+    }
+}
