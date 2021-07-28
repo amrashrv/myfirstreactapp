@@ -4,7 +4,7 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { ChatMessageType } from '../../api/chat';
+import { ChatMessageType } from '../../api/chatAPI';
 import { sendMessage, startMessagesListening, stopMessagesListening } from '../../redux/chatReducer';
 import { appStateType } from '../../redux/reduxStore';
 
@@ -48,9 +48,9 @@ const Message: React.FC<{ message: ChatMessageType }> = ({ message }) => {
 }
 const AddMessageForm: React.FC = () => {
     const [message, setMessage] = useState('')
-    const [readuStatus, setReaduStatus] = useState<'pending' | 'ready'>('pending')
+    
     const dispatch = useDispatch()
-
+    const status = useSelector((state: appStateType) => state.chat.status)
     const sendMessageHandler = () => {
         if(!message){
             return 
@@ -66,7 +66,7 @@ const AddMessageForm: React.FC = () => {
                 <TextArea onChange={e => setMessage(e.currentTarget.value)} value={message}></TextArea>
             </div>
             <div>
-                <Button  onClick={sendMessageHandler} type={'primary'}>Send</Button>
+                <Button disabled={status !== 'ready'} onClick={sendMessageHandler} type={'primary'}>Send</Button>
             </div>
         </div>
     )
